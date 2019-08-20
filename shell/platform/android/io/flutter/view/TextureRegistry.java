@@ -5,6 +5,7 @@
 package io.flutter.view;
 
 import android.graphics.SurfaceTexture;
+import android.opengl.EGLContext;
 
 /**
  * Registry of backend textures used with a single {@link FlutterView} instance.
@@ -36,6 +37,39 @@ public interface TextureRegistry {
 
         /**
          * Deregisters and releases this SurfaceTexture.
+         */
+        void release();
+    }
+  
+   /**
+   * inform flutter engine that an new frame is render,  start an  new render pipeline
+   */
+    void onShareFrameAvaliable(int textureIndex);
+  
+   /**
+   * get flutter's opengl context
+   */
+    EGLContext getShareContext();
+  
+   /**
+   * Creates a Share Texture which use a texture create by native
+   *
+   * @return A SurfaceTextureEntry.
+   */
+    ShareTextureEntry createShareTexture(long shareTextureID);
+  
+    /**
+     * A registry entry for a managed ShareTexture.
+     */
+    interface ShareTextureEntry {
+      
+        /**
+         * @return The identity of this ShareTexture.
+         */
+        long id();
+      
+        /**
+         * Deregisters and releases this ShareTexture.
          */
         void release();
     }

@@ -37,6 +37,8 @@ class PlatformViewIOS final : public PlatformView {
 
   void RegisterExternalTexture(int64_t id, NSObject<FlutterTexture>* texture);
 
+  void RegisterExternalShareTexture(int64_t id, NSObject<FlutterShareTexture>* texture);
+
   fml::scoped_nsprotocol<FlutterTextInputPlugin*> GetTextInputPlugin() const;
 
   void SetTextInputPlugin(fml::scoped_nsprotocol<FlutterTextInputPlugin*> plugin);
@@ -44,6 +46,8 @@ class PlatformViewIOS final : public PlatformView {
   // |PlatformView|
   void SetSemanticsEnabled(bool enabled) override;
 
+  void* GetGLShareGroup();
+  
  private:
   fml::WeakPtr<FlutterViewController> owner_controller_;
   std::unique_ptr<IOSSurface> ios_surface_;

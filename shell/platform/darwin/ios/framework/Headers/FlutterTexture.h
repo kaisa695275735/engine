@@ -13,6 +13,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 FLUTTER_EXPORT
+@protocol FlutterShareTexture <NSObject>
+- (GLuint)copyShareTexture;
+@end
+
 @protocol FlutterTexture <NSObject>
 - (CVPixelBufferRef _Nullable)copyPixelBuffer;
 @end
@@ -20,8 +24,10 @@ FLUTTER_EXPORT
 FLUTTER_EXPORT
 @protocol FlutterTextureRegistry <NSObject>
 - (int64_t)registerTexture:(NSObject<FlutterTexture>*)texture;
+- (int64_t)registerShareTexture:(NSObject<FlutterShareTexture>*)texture;
 - (void)textureFrameAvailable:(int64_t)textureId;
 - (void)unregisterTexture:(int64_t)textureId;
+- (id)getShareGroup;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -34,6 +34,8 @@ class AndroidContextGL : public fml::RefCountedThreadSafe<AndroidContextGL> {
   SkISize GetSize();
 
   bool Resize(const SkISize& size);
+  
+  void* GetShareContext();
 
  private:
   fml::RefPtr<AndroidEnvironmentGL> environment_;

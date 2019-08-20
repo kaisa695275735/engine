@@ -73,6 +73,12 @@ class PlatformViewAndroid final : public PlatformView {
       int64_t texture_id,
       const fml::jni::JavaObjectWeakGlobalRef& surface_texture);
 
+  void RegisterExternalShareTexture(
+                               int64_t texture_id,
+                               int64_t share_texture_id);
+  
+  void* GetShareContext();
+
  private:
   const fml::jni::JavaObjectWeakGlobalRef java_object_;
   const std::unique_ptr<AndroidSurface> android_surface_;

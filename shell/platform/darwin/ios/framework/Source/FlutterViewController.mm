@@ -1036,6 +1036,10 @@ constexpr CGFloat kStandardStatusBarHeight = 20.0;
 - (int64_t)registerTexture:(NSObject<FlutterTexture>*)texture {
   return [_engine.get() registerTexture:texture];
 }
+  
+- (int64_t)registerShareTexture:(NSObject<FlutterShareTexture>*)texture {
+  return [_engine.get() registerShareTexture:texture];
+}
 
 - (void)unregisterTexture:(int64_t)textureId {
   [_engine.get() unregisterTexture:textureId];
@@ -1043,6 +1047,10 @@ constexpr CGFloat kStandardStatusBarHeight = 20.0;
 
 - (void)textureFrameAvailable:(int64_t)textureId {
   [_engine.get() textureFrameAvailable:textureId];
+}
+  
+- (id)getShareGroup {
+  return [_engine.get() getShareGroup];
 }
 
 - (NSString*)lookupKeyForAsset:(NSString*)asset {

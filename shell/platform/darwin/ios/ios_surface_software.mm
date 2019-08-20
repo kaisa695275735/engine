@@ -37,6 +37,10 @@ void IOSSurfaceSoftware::UpdateStorageSizeIfNecessary() {
   // size so we can update to match. This method was added to work around
   // Android oddities.
 }
+  
+void* IOSSurfaceSoftware::GetGLShareGroup() {
+  return nullptr;
+}
 
 std::unique_ptr<Surface> IOSSurfaceSoftware::CreateGPUSurface() {
   if (!IsValid()) {
