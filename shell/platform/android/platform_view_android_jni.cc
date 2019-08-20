@@ -473,12 +473,14 @@ static jobject GetShareContext(JNIEnv* env,
   } else {
     eglcontextConstructor =
         env->GetMethodID(eglcontextClassLocal, "<init>", "(I)V");
+    int contextAddress = (int)(size_t)cxt;
     if ((EGLContext)cxt == EGL_NO_CONTEXT) {
+      contextAddress = (int)(size_t)EGL_NO_CONTEXT;
       return env->NewObject(eglcontextClassLocal, eglcontextConstructor,
-                            reinterpret_cast<jlong>(EGL_NO_CONTEXT));
+                            reinterpret_cast<jint>(jint(contextAddress)));
     }
     eglContext = env->NewObject(eglcontextClassLocal, eglcontextConstructor,
-                                reinterpret_cast<jint>(jint(cxt)));
+                                reinterpret_cast<jint>(jint(contextAddress)));
   }
 
   return eglContext;
