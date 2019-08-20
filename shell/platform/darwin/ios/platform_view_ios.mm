@@ -73,13 +73,13 @@ void PlatformViewIOS::RegisterExternalTexture(int64_t texture_id,
 }
 
 void PlatformViewIOS::RegisterExternalShareTexture(int64_t texture_id,
-                                              NSObject<FlutterShareTexture>* texture) {
+                                                   NSObject<FlutterShareTexture>* texture) {
   RegisterTexture(std::make_shared<IOSExternalTextureShareContext>(texture_id, texture));
 }
 
 void* PlatformViewIOS::GetGLShareGroup() {
   if (ios_surface_.get() == NULL)
-  return NULL;
+    return NULL;
   return ios_surface_->GetGLShareGroup();
 }
 

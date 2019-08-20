@@ -64,7 +64,6 @@ class AndroidSurfaceGL final : public GPUSurfaceGLDelegate,
   // |GPUSurfaceGLDelegate|
   ExternalViewEmbedder* GetExternalViewEmbedder() override;
 
-
  private:
   fml::RefPtr<AndroidContextGL> onscreen_context_;
   fml::RefPtr<AndroidContextGL> offscreen_context_;

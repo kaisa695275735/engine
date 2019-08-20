@@ -37,7 +37,7 @@ void IOSSurfaceSoftware::UpdateStorageSizeIfNecessary() {
   // size so we can update to match. This method was added to work around
   // Android oddities.
 }
-  
+
 void* IOSSurfaceSoftware::GetGLShareGroup() {
   return nullptr;
 }

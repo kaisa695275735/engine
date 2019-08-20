@@ -47,7 +47,7 @@ class PlatformViewIOS final : public PlatformView {
   void SetSemanticsEnabled(bool enabled) override;
 
   void* GetGLShareGroup();
-  
+
  private:
   fml::WeakPtr<FlutterViewController> owner_controller_;
   std::unique_ptr<IOSSurface> ios_surface_;

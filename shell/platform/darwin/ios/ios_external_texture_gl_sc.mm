@@ -13,40 +13,39 @@
 #include "third_party/skia/include/gpu/GrBackendSurface.h"
 
 namespace flutter {
-    
-    IOSExternalTextureShareContext::IOSExternalTextureShareContext(int64_t textureId,
-                                               NSObject<FlutterShareTexture>* externalTexture)
-    : Texture(textureId), external_texture_(externalTexture) {
-        FML_DCHECK(external_texture_);
-    }
-    
-    IOSExternalTextureShareContext::~IOSExternalTextureShareContext() = default;
-    
-    void IOSExternalTextureShareContext::Paint(SkCanvas& canvas,
-                                     const SkRect& bounds,
-                                     bool freeze,
-                                     GrContext* context) {
-        GrGLTextureInfo textureInfo;
-        textureInfo.fFormat = GL_RGBA8_OES;
-        textureInfo.fID = [external_texture_ copyShareTexture];
-        textureInfo.fTarget = GL_TEXTURE_2D;
 
-        GrBackendTexture backendTexture(bounds.width(), bounds.height(), GrMipMapped::kNo, textureInfo);
-        sk_sp<SkImage> image =
-        SkImage::MakeFromTexture(context, backendTexture, kTopLeft_GrSurfaceOrigin,
-                                 kRGBA_8888_SkColorType, kPremul_SkAlphaType, nullptr);
-        FML_DCHECK(image) << "Failed to create SkImage from Texture.";
-        if (image) {
-            canvas.drawImage(image, bounds.x(), bounds.y());
-        }
-    }
-    
-    void IOSExternalTextureShareContext::OnGrContextCreated() {
-    }
-    
-    void IOSExternalTextureShareContext::OnGrContextDestroyed() {
-    }
-    
-    void IOSExternalTextureShareContext::MarkNewFrameAvailable() {}
-    
+IOSExternalTextureShareContext::IOSExternalTextureShareContext(
+    int64_t textureId,
+    NSObject<FlutterShareTexture>* externalTexture)
+    : Texture(textureId), external_texture_(externalTexture) {
+  FML_DCHECK(external_texture_);
+}
+
+IOSExternalTextureShareContext::~IOSExternalTextureShareContext() = default;
+
+void IOSExternalTextureShareContext::Paint(SkCanvas& canvas,
+                                           const SkRect& bounds,
+                                           bool freeze,
+                                           GrContext* context) {
+  GrGLTextureInfo textureInfo;
+  textureInfo.fFormat = GL_RGBA8_OES;
+  textureInfo.fID = [external_texture_ copyShareTexture];
+  textureInfo.fTarget = GL_TEXTURE_2D;
+
+  GrBackendTexture backendTexture(bounds.width(), bounds.height(), GrMipMapped::kNo, textureInfo);
+  sk_sp<SkImage> image =
+      SkImage::MakeFromTexture(context, backendTexture, kTopLeft_GrSurfaceOrigin,
+                               kRGBA_8888_SkColorType, kPremul_SkAlphaType, nullptr);
+  FML_DCHECK(image) << "Failed to create SkImage from Texture.";
+  if (image) {
+    canvas.drawImage(image, bounds.x(), bounds.y());
+  }
+}
+
+void IOSExternalTextureShareContext::OnGrContextCreated() {}
+
+void IOSExternalTextureShareContext::OnGrContextDestroyed() {}
+
+void IOSExternalTextureShareContext::MarkNewFrameAvailable() {}
+
 }  // namespace flutter

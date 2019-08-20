@@ -73,7 +73,7 @@ bool IOSSurfaceGL::GLContextPresent() {
   TRACE_EVENT0("flutter", "IOSSurfaceGL::GLContextPresent");
   return IsValid() && render_target_->PresentRenderBuffer();
 }
-  
+
 void* IOSSurfaceGL::GetGLShareGroup() {
   return context_.get()->GetGLShareGroup();
 }

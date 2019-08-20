@@ -130,7 +130,6 @@ ExternalViewEmbedder* AndroidSurfaceGL::GetExternalViewEmbedder() {
   return nullptr;
 }
 
-  
 void* AndroidSurfaceGL::GetShareContext() {
   return offscreen_context_->GetShareContext();
 }

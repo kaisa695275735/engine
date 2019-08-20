@@ -43,7 +43,6 @@ class AndroidSurfaceSoftware final : public AndroidSurface,
 
   // |AndroidSurface|
   void* GetShareContext() override;
-                                       
 
   // |GPUSurfaceSoftwareDelegate|
   sk_sp<SkSurface> AcquireBackingStore(const SkISize& size) override;

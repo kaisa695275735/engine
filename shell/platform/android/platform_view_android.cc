@@ -376,12 +376,14 @@ void PlatformViewAndroid::RegisterExternalTexture(
   RegisterTexture(
       std::make_shared<AndroidExternalTextureGL>(texture_id, surface_texture));
 }
-  
-void PlatformViewAndroid::RegisterExternalShareTexture(int64_t texture_id,
-                                                   int64_t share_texture_id) {
-    RegisterTexture(std::make_shared<AndroidExternalTextureShareContext>(texture_id, share_texture_id));
+
+void PlatformViewAndroid::RegisterExternalShareTexture(
+    int64_t texture_id,
+    int64_t share_texture_id) {
+  RegisterTexture(std::make_shared<AndroidExternalTextureShareContext>(
+      texture_id, share_texture_id));
 }
-  
+
 void* PlatformViewAndroid::GetShareContext() {
   return android_surface_->GetShareContext();
 }

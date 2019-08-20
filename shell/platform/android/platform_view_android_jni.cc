@@ -8,6 +8,8 @@
 
 #include <utility>
 
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
 #include "flutter/assets/directory_asset_bundle.h"
 #include "flutter/common/settings.h"
 #include "flutter/fml/file.h"
@@ -22,8 +24,6 @@
 #include "flutter/shell/platform/android/android_shell_holder.h"
 #include "flutter/shell/platform/android/apk_asset_provider.h"
 #include "flutter/shell/platform/android/flutter_main.h"
-#include <EGL/egl.h>
-#include <EGL/eglext.h>
 
 #define ANDROID_SHELL_HOLDER \
   (reinterpret_cast<AndroidShellHolder*>(shell_holder))
@@ -439,37 +439,40 @@ static void RegisterTexture(JNIEnv* env,
 }
 
 static void RegisterShareTexture(JNIEnv* env,
-                            jobject jcaller,
-                            jlong shell_holder,
-                            jlong texture_id,
-                            jlong share_texture_id) {
+                                 jobject jcaller,
+                                 jlong shell_holder,
+                                 jlong texture_id,
+                                 jlong share_texture_id) {
   ANDROID_SHELL_HOLDER->GetPlatformView()->RegisterExternalShareTexture(
-                                                                   static_cast<int64_t>(texture_id),                        //
-                                                                   static_cast<int64_t>(share_texture_id)  //
-                                                                   );
+      static_cast<int64_t>(texture_id),       //
+      static_cast<int64_t>(share_texture_id)  //
+  );
 }
-  
-static jobject GetShareContext(JNIEnv* env, jobject jcaller, jlong shell_holder) {
-  void* cxt = ANDROID_SHELL_HOLDER->GetPlatformView()->GetContext();
-  
-  jclass versionClass = env->FindClass("android/os/Build$VERSION" );
-  jfieldID sdkIntFieldID = env->GetStaticFieldID(versionClass, "SDK_INT", "I" );
-  int sdkInt = env->GetStaticIntField(versionClass, sdkIntFieldID );
-  __android_log_print(ANDROID_LOG_ERROR, "andymao", "sdkInt %d",sdkInt);
+
+static jobject GetShareContext(JNIEnv* env,
+                               jobject jcaller,
+                               jlong shell_holder) {
+  void* cxt = ANDROID_SHELL_HOLDER->GetPlatformView()->GetShareContext();
+
+  jclass versionClass = env->FindClass("android/os/Build$VERSION");
+  jfieldID sdkIntFieldID = env->GetStaticFieldID(versionClass, "SDK_INT", "I");
+  int sdkInt = env->GetStaticIntField(versionClass, sdkIntFieldID);
   jclass eglcontextClassLocal = env->FindClass("android/opengl/EGLContext");
   jmethodID eglcontextConstructor;
   jobject eglContext;
   if (sdkInt >= 21) {
-    //5.0and above
-    eglcontextConstructor=env->GetMethodID(eglcontextClassLocal, "<init>", "(J)V");
+    // 5.0and above
+    eglcontextConstructor =
+        env->GetMethodID(eglcontextClassLocal, "<init>", "(J)V");
     if ((EGLContext)cxt == EGL_NO_CONTEXT) {
       return env->NewObject(eglcontextClassLocal, eglcontextConstructor,
                             reinterpret_cast<jlong>(EGL_NO_CONTEXT));
     }
     eglContext = env->NewObject(eglcontextClassLocal, eglcontextConstructor,
                                 reinterpret_cast<jlong>(jlong(cxt)));
-  }else{
-    eglcontextConstructor=env->GetMethodID(eglcontextClassLocal, "<init>", "(I)V");
+  } else {
+    eglcontextConstructor =
+        env->GetMethodID(eglcontextClassLocal, "<init>", "(I)V");
     if ((EGLContext)cxt == EGL_NO_CONTEXT) {
       return env->NewObject(eglcontextClassLocal, eglcontextConstructor,
                             reinterpret_cast<jlong>(EGL_NO_CONTEXT));
@@ -477,10 +480,10 @@ static jobject GetShareContext(JNIEnv* env, jobject jcaller, jlong shell_holder)
     eglContext = env->NewObject(eglcontextClassLocal, eglcontextConstructor,
                                 reinterpret_cast<jint>(jint(cxt)));
   }
-  
+
   return eglContext;
 }
-  
+
 static void MarkTextureFrameAvailable(JNIEnv* env,
                                       jobject jcaller,
                                       jlong shell_holder,

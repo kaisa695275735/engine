@@ -10,37 +10,34 @@
 #include "flutter/fml/platform/android/jni_weak_ref.h"
 
 namespace flutter {
-  
-  class AndroidExternalTextureShareContext : public flutter::Texture {
-    public:
-    AndroidExternalTextureShareContext(
-                             int64_t id,
-                             int64_t shareTextureID);
-    
-    ~AndroidExternalTextureShareContext() override;
-    
-    void Paint(SkCanvas& canvas,
-               const SkRect& bounds,
-               bool freeze,
-               GrContext* context) override;
-    
-    void OnGrContextCreated() override;
-    
-    void OnGrContextDestroyed() override;
-    
-    void MarkNewFrameAvailable() override;
-    
-    private:
-        
-    fml::jni::JavaObjectWeakGlobalRef surface_texture_;
-    
-    GLuint texture_name_ = 0;
-    
-    SkMatrix transform;
-    
-    FML_DISALLOW_COPY_AND_ASSIGN(AndroidExternalTextureShareContext);
-  };
-  
+
+class AndroidExternalTextureShareContext : public flutter::Texture {
+ public:
+  AndroidExternalTextureShareContext(int64_t id, int64_t shareTextureID);
+
+  ~AndroidExternalTextureShareContext() override;
+
+  void Paint(SkCanvas& canvas,
+             const SkRect& bounds,
+             bool freeze,
+             GrContext* context) override;
+
+  void OnGrContextCreated() override;
+
+  void OnGrContextDestroyed() override;
+
+  void MarkNewFrameAvailable() override;
+
+ private:
+  fml::jni::JavaObjectWeakGlobalRef surface_texture_;
+
+  GLuint texture_name_ = 0;
+
+  SkMatrix transform;
+
+  FML_DISALLOW_COPY_AND_ASSIGN(AndroidExternalTextureShareContext);
+};
+
 }  // namespace flutter
 
 #endif  // FLUTTER_SHELL_PLATFORM_ANDROID_EXTERNAL_TEXTURE_GL_H_
