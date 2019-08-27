@@ -17,6 +17,7 @@
 #include "flutter/shell/common/platform_view.h"
 #include "flutter/shell/platform/android/android_native_window.h"
 #include "flutter/shell/platform/android/android_surface.h"
+#include <EGL/egl.h>
 
 namespace flutter {
 
@@ -76,7 +77,7 @@ class PlatformViewAndroid final : public PlatformView {
   void RegisterExternalShareTexture(int64_t texture_id,
                                     int64_t share_texture_id);
 
-  void* GetShareContext();
+  EGLContext GetShareContext();
 
  private:
   const fml::jni::JavaObjectWeakGlobalRef java_object_;

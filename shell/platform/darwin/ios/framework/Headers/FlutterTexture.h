@@ -9,11 +9,17 @@
 #import <Foundation/Foundation.h>
 
 #include "FlutterMacros.h"
+#import <OpenGLES/EAGL.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 FLUTTER_EXPORT
 @protocol FlutterShareTexture <NSObject>
+/*
+ *copy OpenGL Texture directly
+ *Returned Texture format should be GL_RGBA
+ *Returned Texture target should be GL_TEXTURE_2D
+ */
 - (GLuint)copyShareTexture;
 @end
 
@@ -27,7 +33,7 @@ FLUTTER_EXPORT
 - (int64_t)registerShareTexture:(NSObject<FlutterShareTexture>*)texture;
 - (void)textureFrameAvailable:(int64_t)textureId;
 - (void)unregisterTexture:(int64_t)textureId;
-- (id)getShareGroup;
+- (EAGLSharegroup *)getShareGroup;
 @end
 
 NS_ASSUME_NONNULL_END

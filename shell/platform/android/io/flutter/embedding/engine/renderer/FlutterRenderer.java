@@ -135,8 +135,8 @@ public class FlutterRenderer implements TextureRegistry {
   }
 
   @Override
-  public EGLContext getShareContext() {
-    return flutterJNI.getShareContext();
+  public EGLContext getShareContext(long sdkInt) {
+    return flutterJNI.getShareContext(sdkInt);
   }
 
   final class SurfaceTextureRegistryEntry implements TextureRegistry.SurfaceTextureEntry {
@@ -280,7 +280,6 @@ public class FlutterRenderer implements TextureRegistry {
     flutterJNI.registerTexture(textureId, surfaceTexture);
   }
 
-  // TODO(mattcarroll): describe the native behavior that this invokes
   private void registerShareTexture(long textureId, long shareTextureID) {
     flutterJNI.registerShareTexture(textureId, shareTextureID);
   }

@@ -785,8 +785,8 @@ public class FlutterView extends SurfaceView implements BinaryMessenger, Texture
     }
 
     @Override
-    public EGLContext getShareContext() {
-        return mNativeView.getFlutterJNI().getShareContext();
+    public EGLContext getShareContext(long sdkInt) {
+        return mNativeView.getFlutterJNI().getShareContext(sdkInt);
     }
 
     final class SurfaceTextureRegistryEntry implements TextureRegistry.SurfaceTextureEntry {

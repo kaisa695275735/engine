@@ -272,7 +272,7 @@ bool AndroidContextGL::Resize(const SkISize& size) {
   return true;
 }
 
-void* AndroidContextGL::GetShareContext() {
+EGLContext AndroidContextGL::GetShareContext() {
   return context_;
 }
 

@@ -47,7 +47,7 @@ class AndroidSurfaceGL final : public GPUSurfaceGLDelegate,
   bool SetNativeWindow(fml::RefPtr<AndroidNativeWindow> window) override;
 
   // |AndroidSurface|
-  void* GetShareContext() override;
+  EGLContext GetShareContext() override;
 
   // |GPUSurfaceGLDelegate|
   bool GLContextMakeCurrent() override;

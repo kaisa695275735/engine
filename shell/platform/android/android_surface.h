@@ -14,6 +14,7 @@
 #include "flutter/shell/common/surface.h"
 #include "flutter/shell/platform/android/android_native_window.h"
 #include "third_party/skia/include/core/SkSize.h"
+#include <EGL/egl.h>
 
 namespace flutter {
 
@@ -37,7 +38,7 @@ class AndroidSurface {
 
   virtual bool SetNativeWindow(fml::RefPtr<AndroidNativeWindow> window) = 0;
 
-  virtual void* GetShareContext() = 0;
+  virtual EGLContext GetShareContext() = 0;
 };
 
 }  // namespace flutter

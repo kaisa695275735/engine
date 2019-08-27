@@ -42,19 +42,24 @@ public interface TextureRegistry {
     }
   
    /**
-   * inform flutter engine that an new frame is render,  start an  new render pipeline
+   * Informs the the Flutter Engine that the external texture has been updated, and to start a new rendering pipeline.
    */
     void onShareFrameAvaliable(int textureIndex);
   
    /**
-   * get flutter's opengl context
+   * The OpenGL context created in the Flutter Engine, which is safe to user for sharing
+   * Param: Android SDK version code
    */
-    EGLContext getShareContext();
+    EGLContext getShareContext(long sdkInt);
   
    /**
-   * Creates a Share Texture which use a texture create by native
-   *
-   * @return A SurfaceTextureEntry.
+   * Create a ShareTextureEntry, and registers a External Texture in Flutter Engine
+   * The paramater is a OpenGL Texture ID
+   * Generally, this is used for users who process image frame with OpenGL(such as filter with GPUImage), and display the image frame using Flutter external texture
+   * Unlike SurfaceTexture, this can directly send the processed textures from OpenGL to flutter rendering pipeline.
+   * Avoid the performance consumption of data writing to SurfaceTexture
+   * Requirement: The OpenGL Texture should created in the EGLContext which is created using getShareContext(sdkInt) as a ShareContext
+   * @return A ShareTextureEntry.
    */
     ShareTextureEntry createShareTexture(long shareTextureID);
   

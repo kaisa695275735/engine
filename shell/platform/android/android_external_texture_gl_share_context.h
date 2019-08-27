@@ -31,7 +31,7 @@ class AndroidExternalTextureShareContext : public flutter::Texture {
  private:
   fml::jni::JavaObjectWeakGlobalRef surface_texture_;
 
-  GLuint texture_name_ = 0;
+  GLuint texture_id_ = 0;
 
   SkMatrix transform;
 

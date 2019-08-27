@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "flutter/shell/platform/android/android_external_texture_gl_sc.h"
+#include "flutter/shell/platform/android/android_external_texture_gl_share_context.h"
 
 #include <GLES/glext.h>
 
@@ -14,7 +14,7 @@ namespace flutter {
 AndroidExternalTextureShareContext::AndroidExternalTextureShareContext(
     int64_t id,
     int64_t shareTextureID)
-    : Texture(id), texture_name_(shareTextureID) {}
+    : Texture(id), texture_id_(shareTextureID) {}
 
 AndroidExternalTextureShareContext::~AndroidExternalTextureShareContext() {}
 
@@ -26,7 +26,7 @@ void AndroidExternalTextureShareContext::Paint(SkCanvas& canvas,
                                                const SkRect& bounds,
                                                bool freeze,
                                                GrContext* context) {
-  GrGLTextureInfo textureInfo = {GL_TEXTURE_EXTERNAL_OES, texture_name_,
+  GrGLTextureInfo textureInfo = {GL_TEXTURE_EXTERNAL_OES, texture_id_,
                                  GL_RGBA8_OES};
 
   textureInfo.fTarget = GL_TEXTURE_2D;

@@ -158,7 +158,7 @@ bool AndroidSurfaceSoftware::SetNativeWindow(
   return true;
 }
 
-void* AndroidSurfaceSoftware::GetShareContext() {
+EGLContext AndroidSurfaceSoftware::GetShareContext() {
   return 0;
 }
 

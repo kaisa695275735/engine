@@ -451,16 +451,14 @@ static void RegisterShareTexture(JNIEnv* env,
 
 static jobject GetShareContext(JNIEnv* env,
                                jobject jcaller,
-                               jlong shell_holder) {
-  void* cxt = ANDROID_SHELL_HOLDER->GetPlatformView()->GetShareContext();
+                               jlong shell_holder,
+                               jlong sdk_int) {
+  EGLContext cxt = ANDROID_SHELL_HOLDER->GetPlatformView()->GetShareContext();
 
-  jclass versionClass = env->FindClass("android/os/Build$VERSION");
-  jfieldID sdkIntFieldID = env->GetStaticFieldID(versionClass, "SDK_INT", "I");
-  int sdkInt = env->GetStaticIntField(versionClass, sdkIntFieldID);
   jclass eglcontextClassLocal = env->FindClass("android/opengl/EGLContext");
   jmethodID eglcontextConstructor;
   jobject eglContext;
-  if (sdkInt >= 21) {
+  if (sdk_int >= 21) {
     // 5.0and above
     eglcontextConstructor =
         env->GetMethodID(eglcontextClassLocal, "<init>", "(J)V");
@@ -641,7 +639,7 @@ bool RegisterApi(JNIEnv* env) {
       },
       {
           .name = "nativeGetShareContext",
-          .signature = "(J)Landroid/opengl/EGLContext;",
+          .signature = "(JJ)Landroid/opengl/EGLContext;",
           .fnPtr = reinterpret_cast<void*>(&GetShareContext),
       },
       // Methods for Dart callback functionality.

@@ -554,12 +554,12 @@ public class FlutterJNI {
   private native void nativeRegisterShareTexture(long nativePlatformViewId, long texIndex, long shareTextureId);
   
   @UiThread
-  public EGLContext getShareContext() {
+  public EGLContext getShareContext(long sdkInt) {
     ensureAttachedToNative();
-    return nativeGetShareContext(nativePlatformViewId);
+    return nativeGetShareContext(nativePlatformViewId,sdkInt);
   }
   
-  private native EGLContext nativeGetShareContext(long nativePlatformViewId);
+  private native EGLContext nativeGetShareContext(long nativePlatformViewId,long sdkInt);
 
   /**
    * Call this method to inform Flutter that a texture previously registered with

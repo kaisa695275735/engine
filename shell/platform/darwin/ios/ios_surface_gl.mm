@@ -74,7 +74,7 @@ bool IOSSurfaceGL::GLContextPresent() {
   return IsValid() && render_target_->PresentRenderBuffer();
 }
 
-void* IOSSurfaceGL::GetGLShareGroup() {
+EAGLSharegroup* IOSSurfaceGL::GetGLShareGroup() {
   return context_.get()->GetGLShareGroup();
 }
 

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "flutter/shell/platform/darwin/ios/ios_external_texture_gl_sc.h"
+#include "flutter/shell/platform/darwin/ios/ios_external_texture_gl_share_context.h"
 
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES2/gl.h>
@@ -27,15 +27,21 @@ void IOSExternalTextureShareContext::Paint(SkCanvas& canvas,
                                            const SkRect& bounds,
                                            bool freeze,
                                            GrContext* context) {
+  GLuint texture_id = [external_texture_ copyShareTexture];
+  if(texture_id == 0)
+  {
+    return;
+  }
   GrGLTextureInfo textureInfo;
   textureInfo.fFormat = GL_RGBA8_OES;
-  textureInfo.fID = [external_texture_ copyShareTexture];
+  textureInfo.fID = texture_id;
   textureInfo.fTarget = GL_TEXTURE_2D;
 
   GrBackendTexture backendTexture(bounds.width(), bounds.height(), GrMipMapped::kNo, textureInfo);
+  printf("paint test back\n");
   sk_sp<SkImage> image =
-      SkImage::MakeFromTexture(context, backendTexture, kTopLeft_GrSurfaceOrigin,
-                               kRGBA_8888_SkColorType, kPremul_SkAlphaType, nullptr);
+  SkImage::MakeFromTexture(context, backendTexture, kTopLeft_GrSurfaceOrigin,
+                           kRGBA_8888_SkColorType, kPremul_SkAlphaType, nullptr);
   FML_DCHECK(image) << "Failed to create SkImage from Texture.";
   if (image) {
     canvas.drawImage(image, bounds.x(), bounds.y());

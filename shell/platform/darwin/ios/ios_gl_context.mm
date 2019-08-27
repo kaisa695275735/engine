@@ -60,9 +60,9 @@ bool IOSGLContext::ResourceMakeCurrent() {
   return [EAGLContext setCurrentContext:resource_context_.get()];
 }
 
-void* IOSGLContext::GetGLShareGroup() {
+EAGLSharegroup* IOSGLContext::GetGLShareGroup() {
   EAGLSharegroup* shareGroup = context_.get().sharegroup;
-  return (void*)shareGroup;
+  return shareGroup;
 }
 
 }  // namespace flutter

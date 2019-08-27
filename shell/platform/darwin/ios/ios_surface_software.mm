@@ -38,7 +38,7 @@ void IOSSurfaceSoftware::UpdateStorageSizeIfNecessary() {
   // Android oddities.
 }
 
-void* IOSSurfaceSoftware::GetGLShareGroup() {
+EAGLSharegroup* IOSSurfaceSoftware::GetGLShareGroup() {
   return nullptr;
 }
 
