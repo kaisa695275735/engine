@@ -563,7 +563,7 @@
   _shell->GetPlatformView()->MarkTextureFrameAvailable(textureId);
 }
 
-- (EAGLSharegroup *)getShareGroup {
+- (EAGLSharegroup*)getShareGroup {
   return self.iosPlatformView->GetGLShareGroup();
 }
 

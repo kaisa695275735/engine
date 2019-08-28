@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include <EGL/egl.h>
 #include "flutter/fml/memory/weak_ptr.h"
 #include "flutter/fml/platform/android/jni_weak_ref.h"
 #include "flutter/fml/platform/android/scoped_java_ref.h"
@@ -17,7 +18,6 @@
 #include "flutter/shell/common/platform_view.h"
 #include "flutter/shell/platform/android/android_native_window.h"
 #include "flutter/shell/platform/android/android_surface.h"
-#include <EGL/egl.h>
 
 namespace flutter {
 

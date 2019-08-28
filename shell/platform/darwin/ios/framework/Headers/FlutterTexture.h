@@ -8,8 +8,8 @@
 #import <CoreMedia/CoreMedia.h>
 #import <Foundation/Foundation.h>
 
-#include "FlutterMacros.h"
 #import <OpenGLES/EAGL.h>
+#include "FlutterMacros.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,7 +33,7 @@ FLUTTER_EXPORT
 - (int64_t)registerShareTexture:(NSObject<FlutterShareTexture>*)texture;
 - (void)textureFrameAvailable:(int64_t)textureId;
 - (void)unregisterTexture:(int64_t)textureId;
-- (EAGLSharegroup *)getShareGroup;
+- (EAGLSharegroup*)getShareGroup;
 @end
 
 NS_ASSUME_NONNULL_END
