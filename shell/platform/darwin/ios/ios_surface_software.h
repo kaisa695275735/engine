@@ -34,7 +34,7 @@ class IOSSurfaceSoftware final : public IOSSurface,
   void UpdateStorageSizeIfNecessary() override;
 
   // |IOSSurface|
-  std::unique_ptr<Surface> CreateGPUSurface() override;
+  std::unique_ptr<Surface> CreateGPUSurface(GrContext* gr_context = nullptr) override;
 
   // |IOSSurface|
   EAGLSharegroup* GetGLShareGroup() override;
